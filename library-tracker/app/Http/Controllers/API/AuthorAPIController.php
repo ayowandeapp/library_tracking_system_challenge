@@ -18,17 +18,19 @@ class AuthorAPIController extends Controller
         return Author::orderBy('id', 'DESC')->get();
     }
 
-    public function postIndex(Request $request) {
+    public function postIndex(Request $request)
+    {
         $data = $request->validate([
             'first_name' => 'required|string|max:100',
-            'last_name'  => 'required|string|max:100',
-            'biography'  => 'nullable|string|max:5000',
+            'last_name' => 'required|string|max:100',
+            'biography' => 'nullable|string|max:5000',
         ]);
 
         return Author::create($data);
     }
 
-    public function putIndex(Request $request, int $id) {
+    public function putIndex(Request $request, int $id)
+    {
         $author = Author::find($id);
         if (empty($author)) {
             throw new Exception('Could not find author.');
@@ -36,15 +38,16 @@ class AuthorAPIController extends Controller
 
         $data = $request->validate([
             'first_name' => 'sometimes|string|max:100',
-            'last_name'  => 'sometimes|string|max:100',
-            'biography'  => 'nullable|string|max:5000',
+            'last_name' => 'sometimes|string|max:100',
+            'biography' => 'nullable|string|max:5000',
         ]);
 
         $author->update($data);
         return $author;
     }
 
-    public function deleteIndex(int $id) {
+    public function deleteIndex(int $id)
+    {
         $author = Author::find($id);
         if (empty($author)) {
             throw new Exception('Could not find author.');
